@@ -1,0 +1,97 @@
+<resources>
+    <string name="app_name">ManageApp</string>
+
+    // TODO: 22/02/18
+    <string name="home">Home</string>
+    <string name="search">Task</string>
+    <string name="favorite">Stats</string>
+    <string name="account">Account</string>
+    <string name="appbar_scrolling_view_behavior">test</string>
+
+<string name="email">Email</string>
+<string name="name">Name</string>
+<string name="minimum_passwor">Password to short, enter minimum 8 characters!</string>
+<string name="auth_filed">Authentication filed, check your email and password or sign up!</string>
+<string name="hint_email">Email</string>
+<string name="hint_name">Name</string>
+<string name="hint_password">Password</string>
+<string name="btn_forgot_password">Forgot your password?</string>
+<string name="btn_login">LOGIN</string>
+<string name="btn_signup">REGISTER</string>
+<string name="btn_link_to_register">Dont have account? Sign Up here!</string>
+<string name="btn_link_to_login">Already have account? Login here!</string>
+<string name="lbl_forgot_password">Forgot Password?</string>
+<string name="forgot_password_msg">We just need your registered Email Id to send you password reset instruction.</string>
+<string name="lbl_register">Register to be our member and lets join us!</string>
+    <string name="btn_back"><![CDATA[<< Back]]></string>
+
+// TO DO 08 / 04 / 2019
+
+    <string name="main_title">Tasks</string>
+
+    <string name="main_todo_task_default_description">A Task</string>
+    <string name="main_todo_empty">There is no task for the moment</string>
+    <string name="main_todo_first">This is a Task. Edit it with a simple press or delete it with a long press.</string>
+
+    <string name="main_classifier_dateRange_upcoming">Upcoming</string>
+    <string name="main_classifier_dateRange_tomorrow">Tomorrow</string>
+    <string name="main_classifier_dateRange_today">Today</string>
+    <string name="main_classifier_dateRange_yesterday">Yesterday</string>
+    <string name="main_classifier_dateRange_past">Past Tasks</string>
+
+    <string name="main_classifier_character_others">Others</string>
+
+    <string name="main_dialog_edit_description">Describe your task here</string>
+
+    <string name="main_menu_add">Add task…</string>
+    <string name="menu_main_delete">Delete task(s)</string>
+    <string name="menu_main_settings">Settings…</string>
+
+    <string name="settings_title">Settings</string>
+
+    <string name="settings_category_app">Application</string>
+    <string name="settings_category_list">Task list</string>
+    <string name="settings_category_about">About</string>
+
+    <string name="settings_app_theme_title">Application Theme</string>
+    <string name="settings_app_theme_summary">This setting allows you to change the application theme.</string>
+
+    <string name="settings_app_notification_title">Task reminder</string>
+    <string name="settings_app_notification_summary">If there are tasks to accomplish on a day, the application will send you a notification.</string>
+
+    <string name="settings_list_order_warning_title">Warning !</string>
+    <string name="settings_list_order_warning_message">You must restart the application to see the changes.</string>
+    <string name="settings_list_order_warning_button_neutral">Do not show again</string>
+    <string name="settings_list_order_title">Display order</string>
+    <string name="settings_list_order_summary">Select the order in which you want to display your tasks.</string>
+    <string name="settings_list_scrollToToday_title">Scroll to today</string>
+    <string name="settings_list_scrollToToday_summary">Automatically scroll to today\'s tasks when opening the application.</string>
+
+    <string name="settings_backup_title">Backup and Restore</string>
+    <string name="settings_backup_backup_title">Backup tasks</string>
+    <string name="settings_backup_backup_summary">Backup all your tasks.</string>
+    <string name="settings_backup_restore_title">Restore tasks</string>
+    <string name="settings_backup_restore_summary">Restore the tasks from a previous backup.</string>
+
+    <string name="settings_about_app_title">About</string>
+    <string name="settings_about_app_summary">SkyList has been created by Skyost. If you enjoy it, please do not forget to leave a good rating on Google Play !</string>
+    <string name="settings_about_skyost_title" translatable="false">Skyost</string>
+    <string name="settings_about_skyost_summary" translatable="false">https://www.skyost.eu</string>
+    <string name="settings_about_github_title" translatable="false">Github</string>
+    <string name="settings_about_github_summary" translatable="false">https://github.com/Skyost/SkyList</string>
+
+    <string name="widget_empty">You have nothing to do today.</string>
+
+    <string name="notification_channel">Task Reminder</string>
+    <string name="notification_title">Today\'s tasks</string>
+    <string name="notification_content">You have %d task(s) to do today.</string>
+
+    <string name="toast_success">Success !</string>
+    <string name="toast_error">An error occurred : "%s".</string>
+    <string name="toast_nobackup">There is no available backup.</string>
+
+    <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
+    <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "317390239373",
+    "firebase_url": "https://pimnas32-f0595.firebaseio.com",
+    "project_id": "pimnas32-f0595",
+    "storage_bucket": "pimnas32-f0595.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317390239373:android:20698165430dde5f",
+        "android_client_info": {
+          "package_name": "com.example.manageapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3X_jSZDE0deNzKRA2MhRDhepnEtrRJfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317390239373-p6n3gsfh58ti4h7k0bt7sb7hd1rnpqaq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
