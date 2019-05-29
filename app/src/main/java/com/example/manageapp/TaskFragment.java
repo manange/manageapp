@@ -4,6 +4,7 @@ package com.example.manageapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import android.view.View;
@@ -26,23 +28,30 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 
 public class TaskFragment extends Fragment  {
     TaskFragment activity;
     TaskDBHelper mydb;
-    NoScrollListView taskListYesterday,taskListToday, taskListTomorrow, taskListUpcoming;
+    NoScrollListView taskListYesterday,taskListToday, taskListTomorrow, taskListUpcoming, taskListDone;
     NestedScrollView scrollView;
     ImageView img_add;
     ProgressBar loader;
-    TextView yesterdayText,todayText,tomorrowText,upcomingText;
+    TextView yesterdayText,todayText,tomorrowText,upcomingText, doneText;
 
     ArrayList<HashMap<String, String>> todayList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tomorrowList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> upcomingList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> yesterdayList = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String, String>> doneList = new ArrayList<HashMap<String, String>>();
 
     public static String KEY_ID = "id";
     public static String KEY_TASK = "task";
@@ -60,14 +69,15 @@ public class TaskFragment extends Fragment  {
         taskListTomorrow = view.findViewById(R.id.taskListTomorrow);
         taskListUpcoming = view.findViewById(R.id.taskListUpcoming);
         taskListYesterday = view.findViewById(R.id.taskListYesterday);
+        taskListDone = view.findViewById(R.id.taskListDone);
 
 
         todayText = view.findViewById(R.id.todayText);
         tomorrowText = view.findViewById(R.id.tomorrowText);
         upcomingText = view.findViewById(R.id.upcomingText);
         yesterdayText = view.findViewById(R.id.yesterdayText);
+        doneText = view.findViewById(R.id.doneText);
         img_add = view.findViewById(R.id.img_add);
-
         img_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,11 +126,11 @@ public class TaskFragment extends Fragment  {
             tomorrowList.clear();
             upcomingList.clear();
             yesterdayList.clear();
+            doneList.clear();
         }
 
         protected String doInBackground(String... args) {
             String xml = "";
-
             /* ===== TODAY ========*/
             Cursor today = mydb.getDataToday();
             loadDataList(today, todayList);
@@ -136,10 +146,16 @@ public class TaskFragment extends Fragment  {
             loadDataList(upcoming, upcomingList);
             /* ===== UPCOMING ========*/
 
+            Log.d("DEBUG GAN", "Im here");
             /* ===== YESTERDAY ========*/
             Cursor yesterday = mydb.getDataYesterday();
             loadDataList(yesterday, yesterdayList);
             /* ===== YESTERDAY ========*/
+
+            /* ===== DONE ========*/
+            Cursor done = mydb.getDataDone();
+            loadDataList(done, doneList);
+            /* ===== DONE ========*/
             return xml;
         }
 
@@ -151,6 +167,7 @@ public class TaskFragment extends Fragment  {
             loadListView(taskListTomorrow,tomorrowList);
             loadListView(taskListUpcoming,upcomingList);
             loadListView(taskListYesterday,yesterdayList);
+            loadListView(taskListDone,doneList);
 
             if(todayList.size()>0)
             {
@@ -179,6 +196,12 @@ public class TaskFragment extends Fragment  {
 
             }
 
+            if (doneList.size()>0){
+                doneText.setVisibility(View.VISIBLE);
+            } else {doneText.setVisibility(View.GONE);
+
+            }
+
 
             loader.setVisibility(View.GONE);
             scrollView.setVisibility(View.VISIBLE);
@@ -200,30 +223,38 @@ public class TaskFragment extends Fragment  {
                 dataList.add(mapToday);
                 cursor.moveToNext();
             }
+            Collections.sort(dataList, new Comparator<HashMap<String, String>>() {
+                DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                @Override
+                public int compare(HashMap<String, String> o1, HashMap<String, String> o2) {
+                    try {
+                        return format.parse(o1.get(KEY_DATE)).compareTo(format.parse(o2.get(KEY_DATE)));
+                    } catch (ParseException e) {
+                        throw new IllegalArgumentException(e);
+                    }
+                }
+            });
         }
+
     }
-//        myDb = new DatabaseHelper(this.getContext());
-//        RecyclerView todoList = view.findViewById(R.id.todoList);
-//        todoList.setLayoutManager(new LinearLayoutManager(this.getContext()));
-//        String[] taskname = {"Your task here.."};
-//        todoList.setAdapter(new ToDoTaskAdapter(taskname));
-////        Toolbar toolbar = view.findViewById(R.id.toolbar);
-////// setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = view.findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent newtask = new Intent(getActivity(), NewToDoActivity.class);
-//                startActivity(newtask);
-//            }
-//        });
-
-
 
     public void loadListView(ListView listView, final ArrayList<HashMap<String, String>> dataList)
     {
         ListTaskAdapter adapter = new ListTaskAdapter(activity, dataList);
+        adapter.setCallback(new ListTaskAdapterItemClickCallback() {
+            @Override
+            public void onClickCallback(String query) {
+                mydb.getWritableDatabase().execSQL(query);
+                populateData();
+            }
+        });
+        adapter.setTask_done_callback(new ListTaskAdapterItemClickCallback() {
+            @Override
+            public void onClickCallback(String query) {
+                mydb.getWritableDatabase().execSQL(query);
+                populateData();
+            }
+        });
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
@@ -236,7 +267,6 @@ public class TaskFragment extends Fragment  {
             }
         });
     }
-
 
 
     @Nullable

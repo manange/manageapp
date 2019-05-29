@@ -30,7 +30,8 @@ public class TaskDBHelper extends SQLiteOpenHelper {
 
         db.execSQL(
                 "CREATE TABLE "+CONTACTS_TABLE_NAME +
-                        "(id INTEGER PRIMARY KEY, task TEXT, dateStr INTEGER)"
+                        "(id INTEGER PRIMARY KEY, task TEXT, dateStr INTEGER, status TEXT DEFAULT ('false') , description TEXT, alarm INTEGER )"
+//                CREATE TABLE foo(mycolumn BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)));
         );
     }
 
@@ -79,7 +80,11 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-
+    public Cursor getDataOrderByDate() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CONTACTS_TABLE_NAME + " order by date(dateStr) desc", null);
+        return res;
+    }
 
     public Cursor getData(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -90,14 +95,14 @@ public class TaskDBHelper extends SQLiteOpenHelper {
 
     public Cursor getDataSpecific(String id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery("select * from "+CONTACTS_TABLE_NAME+" WHERE id = '"+id+"' order by id desc", null);
+        Cursor res =  db.rawQuery("select * from "+CONTACTS_TABLE_NAME+" WHERE id = '"+id+"' order by date(dateStr) asc", null);
         return res;
 
     }
     public Cursor getDataYesterday(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery("select * from "+CONTACTS_TABLE_NAME+
-                " WHERE date(datetime(dateStr / 1000 , 'unixepoch', 'localtime')) = date('now','-1 day' , 'localtime') order by id desc", null);
+                " WHERE status = 'false' AND date(datetime(dateStr / 1000 , 'unixepoch', 'localtime')) <= date('now','-1 day' , 'localtime') order by date(dateStr) desc", null);
         return res;
 
     }
@@ -105,7 +110,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     public Cursor getDataToday(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery("select * from "+CONTACTS_TABLE_NAME+
-                " WHERE date(datetime(dateStr / 1000 , 'unixepoch', 'localtime')) = date('now', 'localtime') order by id desc", null);
+                "  WHERE status = 'false' AND date(datetime(dateStr / 1000 , 'unixepoch', 'localtime')) = date('now', 'localtime') order by date(dateStr) desc", null);
         return res;
 
     }
@@ -114,7 +119,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     public Cursor getDataTomorrow(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery("select * from "+CONTACTS_TABLE_NAME+
-                " WHERE date(datetime(dateStr / 1000 , 'unixepoch', 'localtime')) = date('now', '+1 day', 'localtime')  order by id desc", null);
+                " WHERE status = 'false' AND date(datetime(dateStr / 1000 , 'unixepoch', 'localtime')) = date('now', '+1 day', 'localtime')  order by date(dateStr) desc", null);
         return res;
 
     }
@@ -123,7 +128,15 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     public Cursor getDataUpcoming(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery("select * from "+CONTACTS_TABLE_NAME+
-                " WHERE date(datetime(dateStr / 1000 , 'unixepoch', 'localtime')) > date('now', '+1 day', 'localtime') order by id desc", null);
+                " WHERE status = 'false' AND date(datetime(dateStr / 1000 , 'unixepoch', 'localtime')) > date('now', '+1 day', 'localtime') order by date(dateStr) desc", null);
+        return res;
+
+    }
+
+    public Cursor getDataDone(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery("select * from "+CONTACTS_TABLE_NAME+
+                " WHERE status = 'true' order by date(dateStr) desc", null);
         return res;
 
     }

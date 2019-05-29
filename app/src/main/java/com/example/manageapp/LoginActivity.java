@@ -53,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 
@@ -92,10 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
-                finish();
             }
         });
-
         //move to ForgotPasswordActivity
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override

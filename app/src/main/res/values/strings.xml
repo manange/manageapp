@@ -94,4 +94,6 @@
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
 
     <string name="action_settings">Settings</string>
+    <string name="textStats">This Your Activity</string>
+    <string name="lblStats">All your activities will be recorded on the graph</string>
 </resources>
