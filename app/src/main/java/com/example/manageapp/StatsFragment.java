@@ -1,7 +1,10 @@
 package com.example.manageapp;
 
 import android.database.Cursor;
+<<<<<<< HEAD
 import android.database.sqlite.SQLiteDatabase;
+=======
+>>>>>>> ea368de67b78b959cba88582508ec2a94527d463
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Debug;
@@ -16,7 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
+<<<<<<< HEAD
 import com.github.mikephil.charting.charts.PieChart;
+=======
+>>>>>>> ea368de67b78b959cba88582508ec2a94527d463
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -41,19 +47,28 @@ public class StatsFragment extends Fragment {
     final String KEY_ID = "id";
     final String KEY_TASK = "task";
     final String KEY_DATE = "date";
+<<<<<<< HEAD
     final String KEY_STATUS = "status";
+=======
+>>>>>>> ea368de67b78b959cba88582508ec2a94527d463
 
     private ArrayList<HashMap<String, String>> stats = new ArrayList<>();
 
     BarChart barChart;
+<<<<<<< HEAD
     PieChart pieChart;
+=======
+>>>>>>> ea368de67b78b959cba88582508ec2a94527d463
     TaskDBHelper mydb;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         barChart = view.findViewById(R.id.chart);
+<<<<<<< HEAD
         pieChart = view.findViewById(R.id.pie_chart);
+=======
+>>>>>>> ea368de67b78b959cba88582508ec2a94527d463
         mydb = new TaskDBHelper(this.getContext());
         new LoadTask().execute();
     }
@@ -71,6 +86,7 @@ public class StatsFragment extends Fragment {
 
             stats.clear();
         }
+<<<<<<< HEAD
 
         protected String doInBackground(String... args) {
             String xml = "";
@@ -78,10 +94,50 @@ public class StatsFragment extends Fragment {
             Cursor today = mydb.getDataOrderByDate();
             loadDataList(today, stats);
 
+=======
+
+        protected String doInBackground(String... args) {
+            String xml = "";
+
+            Cursor today = mydb.getDataOrderByDate();
+            loadDataList(today, stats);
+
+>>>>>>> ea368de67b78b959cba88582508ec2a94527d463
             return xml;
         }
         @Override
         protected void onPostExecute(String xml) {
+<<<<<<< HEAD
+=======
+//            HashMap<String, Integer> entries = new HashMap<>();
+//            ArrayList<String> bottomTexts = new ArrayList<>();
+//            ArrayList<Integer> dataList = new ArrayList<>();
+//            for(int i = 0; i < stats.size(); i++) {
+//                String date = stats.get(i).get(KEY_DATE);
+//                if(!entries.containsKey(date)) {
+//                    entries.put(date, 1);
+//                }
+//                else {
+//                    int total = entries.get(date);
+//                    entries.put(date, total+1);
+//                }
+//            }
+//            Iterator it =  entries.entrySet().iterator();
+//            int max = 0;
+//            while(it.hasNext()) {
+//                Map.Entry pair = (Map.Entry)it.next();
+//                bottomTexts.add(pair.getKey().toString());
+//                int total = Integer.parseInt(pair.getValue().toString());
+//                if(max < total) {
+//                    max = total;
+//                }
+//                dataList.add(total);
+//                it.remove();
+//            }
+//            barChart.setBottomTextList(bottomTexts);
+//            barChart.setDataList(dataList, max);
+
+>>>>>>> ea368de67b78b959cba88582508ec2a94527d463
             Collections.sort(stats, new Comparator<HashMap<String, String>>() {
                 DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 @Override
@@ -146,6 +202,10 @@ public class StatsFragment extends Fragment {
             }
         }
     }
+<<<<<<< HEAD
 
 
 }
+=======
+}
+>>>>>>> ea368de67b78b959cba88582508ec2a94527d463
