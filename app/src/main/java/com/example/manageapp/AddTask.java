@@ -26,6 +26,8 @@ public class AddTask extends AppCompatActivity implements DatePickerDialog.OnDat
     int startYear = 0, startMonth = 0, startDay = 0;
     String dateFinal;
     String nameFinal;
+    String timeFinal;
+    String descriptionFinal;
 
     Intent intent;
     Boolean isUpdate;
@@ -61,6 +63,8 @@ public class AddTask extends AppCompatActivity implements DatePickerDialog.OnDat
         TextView toolbar_task_add_title = (TextView) findViewById(R.id.toolbar_task_add_title);
         EditText task_name = (EditText) findViewById(R.id.task_name);
         EditText task_date = (EditText) findViewById(R.id.task_date);
+        EditText task_time = (EditText)  findViewById(R.id.task_alarm);
+        EditText task_description = (EditText) findViewById(R.id.task_description);
         toolbar_task_add_title.setText("Update");
         Cursor task = mydb.getDataSpecific(id);
         if (task != null) {
@@ -72,6 +76,7 @@ public class AddTask extends AppCompatActivity implements DatePickerDialog.OnDat
             startMonth = cal.get(Calendar.MONTH);
             startDay = cal.get(Calendar.DAY_OF_MONTH);
             task_date.setText(Function.Epoch2DateString(task.getString(2).toString(), "dd/MM/yyyy"));
+            task_description.setText(task.getString(4).toString());
 
         }
 
@@ -95,14 +100,21 @@ public class AddTask extends AppCompatActivity implements DatePickerDialog.OnDat
         int errorStep = 0;
         EditText task_name = (EditText) findViewById(R.id.task_name);
         EditText task_date = (EditText) findViewById(R.id.task_date);
+        EditText task_description = (EditText) findViewById(R.id.task_description);
         nameFinal = task_name.getText().toString();
         dateFinal = task_date.getText().toString();
+        descriptionFinal = task_description.getText().toString();
 
 
   /* Checking */
         if (nameFinal.trim().length() < 1) {
             errorStep++;
             task_name.setError("Provide a task name.");
+        }
+
+        if (descriptionFinal.trim().length()<1){
+            errorStep++;
+            task_description.setError("Please set description");
         }
 
         if (dateFinal.trim().length() < 4) {
@@ -114,10 +126,10 @@ public class AddTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
         if (errorStep == 0) {
             if (isUpdate) {
-                mydb.updateContact(id, nameFinal, dateFinal);
+                mydb.updateContact(id, nameFinal, dateFinal,descriptionFinal);
                 Toast.makeText(getApplicationContext(), "Task Updated.", Toast.LENGTH_SHORT).show();
             } else {
-                mydb.insertContact(nameFinal, dateFinal);
+                mydb.insertContact(nameFinal, dateFinal,descriptionFinal);
                 Toast.makeText(getApplicationContext(), "Task Added.", Toast.LENGTH_SHORT).show();
             }
 

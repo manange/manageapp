@@ -30,7 +30,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
 
         db.execSQL(
                 "CREATE TABLE "+CONTACTS_TABLE_NAME +
-                        "(id INTEGER PRIMARY KEY, task TEXT, dateStr INTEGER, status TEXT DEFAULT ('false') , description TEXT, alarm INTEGER )"
+                        "(id INTEGER PRIMARY KEY, task TEXT, dateStr INTEGER, status TEXT DEFAULT ('false'), description TEXT, alarm INTEGER )"
 //                CREATE TABLE foo(mycolumn BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)));
         );
     }
@@ -56,22 +56,23 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertContact(String task, String dateStr) {
+    public boolean insertContact(String task, String dateStr, String description) {
         Date date;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("task", task);
         contentValues.put("dateStr", getDate(dateStr));
+        contentValues.put("description", description);
         db.insert(CONTACTS_TABLE_NAME, null, contentValues);
         return true;
     }
 
-    public boolean updateContact(String id, String task, String dateStr) {
+    public boolean updateContact(String id, String task, String dateStr, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-
         contentValues.put("task", task);
         contentValues.put("dateStr", getDate(dateStr));
+        contentValues.put("description", description);
 
         db.update(CONTACTS_TABLE_NAME, contentValues, "id = ? ", new String[]{id});
         return true;
@@ -151,6 +152,15 @@ public class TaskDBHelper extends SQLiteOpenHelper {
             return res;
 
         }
+
+    public Cursor getStatusDataDone () {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT COUNT(status) AS taskdone from " + CONTACTS_TABLE_NAME +
+                " WHERE status = 'true' ", null);
+
+        return res;
+
+    }
 
     }
 

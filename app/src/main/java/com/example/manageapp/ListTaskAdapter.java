@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import org.w3c.dom.Text;
@@ -62,6 +64,8 @@ public class ListTaskAdapter extends BaseAdapter {
             holder.task_name = (TextView) convertView.findViewById(R.id.task_name);
             holder.task_date = (TextView) convertView.findViewById(R.id.task_date);
             holder.task_done = (CheckBox) convertView.findViewById(R.id.task_done);
+            holder.task_description = (TextView) convertView.findViewById(R.id.task_description) ;
+
 
             convertView.setTag(holder);
         } else {
@@ -72,12 +76,14 @@ public class ListTaskAdapter extends BaseAdapter {
         holder.task_name.setId(position);
         holder.task_date.setId(position);
         holder.task_done.setId(position);
+        holder.task_description.setId(position);
 
         final HashMap<String, String> song = data.get(position);
 
         try{
             holder.task_name.setText(song.get(TaskFragment.KEY_TASK));
             holder.task_date.setText(song.get(TaskFragment.KEY_DATE));
+            holder.task_description.setText(song.get(TaskFragment.KEY_DESCRIPTION));
 
             /* Image */
             ColorGenerator generator = ColorGenerator.MATERIAL;
@@ -103,7 +109,12 @@ public class ListTaskAdapter extends BaseAdapter {
 
                     if(task_done_callback!=null)
                         task_done_callback.onClickCallback(doneTodoItemSql);
+
+//                    if(((CheckBox)v).isChecked()){
+//                        Toast.makeText(ListTaskAdapter.this,"Task have done", Toast.LENGTH_LONG).show();
+//                    }
                 }
+
                 });
 
 
@@ -119,5 +130,6 @@ class ListTaskViewHolder {
     ImageView task_delete;
     TextView task_image;
     TextView task_name, task_date;
+    TextView task_description;
     CheckBox task_done;
 }

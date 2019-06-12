@@ -56,6 +56,7 @@ public class TaskFragment extends Fragment  {
     public static String KEY_ID = "id";
     public static String KEY_TASK = "task";
     public static String KEY_DATE = "date";
+    public  static String KEY_DESCRIPTION = "description";
 //place your activity here
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -146,7 +147,7 @@ public class TaskFragment extends Fragment  {
             loadDataList(upcoming, upcomingList);
             /* ===== UPCOMING ========*/
 
-            Log.d("DEBUG GAN", "Im here");
+            Log.d("DEBUG GAN","Im here");
             /* ===== YESTERDAY ========*/
             Cursor yesterday = mydb.getDataYesterday();
             loadDataList(yesterday, yesterdayList);
@@ -220,6 +221,7 @@ public class TaskFragment extends Fragment  {
                 mapToday.put(KEY_ID, cursor.getString(0).toString());
                 mapToday.put(KEY_TASK, cursor.getString(1).toString());
                 mapToday.put(KEY_DATE, Function.Epoch2DateString(cursor.getString(2).toString(), "dd-MM-yyyy"));
+                mapToday.put(KEY_DESCRIPTION, cursor.getString(4).toString());
                 dataList.add(mapToday);
                 cursor.moveToNext();
             }

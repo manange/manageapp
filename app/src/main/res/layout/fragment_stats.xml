@@ -1,44 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relatife"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tv_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_centerHorizontal="true"
-
-        android:text="@string/textStats"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="600dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:text="@string/lblStats"/>
-    <!--<ScrollView-->
-        <!--android:id="@+id/scrollView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chart"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_marginTop="50dp"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/transparent">
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/pie_chart"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginTop="650dp">
+</LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:isScrollContainer="false">
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:stretchColumns="1">
 
-        </com.github.mikephil.charting.charts.PieChart>
+   <LinearLayout
+               android:padding="15dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:layout_marginTop="50dp">
 
-<!--</ScrollView>-->
+           <TextView
+               android:id="@+id/tv_favorite"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="@dimen/activity_vertical_margin"
+               android:layout_gravity="center"
+               android:text="@string/textStats"
+               android:textStyle="bold"
+               android:textSize="18sp"
+               android:textColor="@android:color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:text="@string/lblStats"/>
+       <Space
+           android:layout_width="match_parent"
+           android:layout_height="20dp" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"/>
+
+               <Space
+                   android:layout_width="wrap_content"
+                   android:layout_height="30dp" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:textAppearance="@style/TextAppearance.AppCompat.Small"
+           android:text="Calculate your activity"/>
+
+       <Space
+           android:layout_width="wrap_content"
+           android:layout_height="10dp" />
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pie_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp">
+                </com.github.mikephil.charting.charts.PieChart>
+            </LinearLayout>
+        </TableLayout>
+    </ScrollView>
 </RelativeLayout>
