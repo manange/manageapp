@@ -17,7 +17,6 @@
         android:textColor="@android:color/background_light"
         android:textSize="30sp"
         android:textStyle="bold" />
-
     <ListView
         android:id="@+id/MainListView"
         android:layout_width="match_parent"
