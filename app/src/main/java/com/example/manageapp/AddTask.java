@@ -63,7 +63,7 @@ public class AddTask extends AppCompatActivity implements DatePickerDialog.OnDat
         TextView toolbar_task_add_title = (TextView) findViewById(R.id.toolbar_task_add_title);
         EditText task_name = (EditText) findViewById(R.id.task_name);
         EditText task_date = (EditText) findViewById(R.id.task_date);
-        EditText task_time = (EditText)  findViewById(R.id.task_alarm);
+//        EditText task_time = (EditText)  findViewById(R.id.task_alarm);
         EditText task_description = (EditText) findViewById(R.id.task_description);
         toolbar_task_add_title.setText("Update");
         Cursor task = mydb.getDataSpecific(id);
